@@ -3,7 +3,7 @@ defmodule Feeder.Parser do
   import SweetXml
   alias Feeder.Discovery
 
-  @user_agent [{"User-agent", "Betteur"}]
+  @user_agent [{"User-agent", "Yourself"}]
 
   @moduledoc """
     This module aims to fetch, parse and returns a elixir formatted map
