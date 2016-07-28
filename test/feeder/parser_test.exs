@@ -1,4 +1,4 @@
-defmodule Feeder.ParserTest do
+defmodule Feeder.Map.Test.ParserTest do
   use ExUnit.Case
 
   doctest Feeder.Parser

@@ -15,9 +15,9 @@ defmodule Feeder.Parser do
   then passing the response to our handler and to our
   xml Parser
 
-  == Example
+  ## Example
 
-      iex> Feeder.Parser.fetch({"test", "odds"})
+      iex> Feeder.Parser.fetch({"unknown", "unknow"})
       {:error, "nil"}
   """
   def fetch(services, options \\ nil) do
@@ -58,11 +58,21 @@ defmodule Feeder.Parser do
 
   ## Example
 
-      iex> Feeder.Parser.parse_xml({:ok, "<xml><Match Id='21312'></Match></xml>"}, {"test", "odds"})
-      {:ok, %{matchs: [%{match_id: '21312'}]}}
-
-      iex> Feeder.Parser.parse_xml({:error, "fail"}, {"test", "odds"})
+      iex> Feeder.Parser.parse_xml({:error, "fail"}, {"weather", "today"})
       {:error, "fail"}
+
+      #Discovery.xml() is just used for testing purpose
+      iex> Feeder.Parser.parse_xml({:ok, Feeder.Map.Test.Fixture.xml()}, {"weather", "today"}, %{cities: "paris-london-sf"})
+      {:ok,
+                  %{matchs: [%{cloudy: 'true',
+                       cloudy_hours: [%{hour: '19', sky_cloud_coverage: '100'}, %{hour: '20', sky_cloud_coverage: '100'}, %{hour: '21', sky_cloud_coverage: '100'}],
+                       date: '25-07-2016 ', location: 'Paris'},
+                     %{cloudy: 'true', cloudy_hours: [%{hour: '19', sky_cloud_coverage: '100'}, %{hour: '20', sky_cloud_coverage: '100'}, %{hour: '21', sky_cloud_coverage: '100'}],
+                       date: '25-07-2016', location: 'San Francisco'},
+                     %{cloudy: 'true', cloudy_hours: [%{hour: '19', sky_cloud_coverage: '100'}, %{hour: '20', sky_cloud_coverage: '100'}, %{hour: '21', sky_cloud_coverage: '100'}],
+                       date: '25-07-2016', location: 'London'}]}}
+
+
   """
   def parse_xml({:ok, body}, service, options \\ nil) do
     collection = body |> xmap(Discovery.map(service, options))
