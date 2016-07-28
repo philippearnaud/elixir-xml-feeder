@@ -4,10 +4,10 @@ defmodule Feeder.Mixfile do
   def project do
     [app: :feeder,
      version: "0.0.1",
-     build_path: "../../_build",
-     config_path: "../../config/config.exs",
-     deps_path: "../../deps",
-     lockfile: "../../mix.lock",
+     build_path: "_build",
+     config_path: "config/config.exs",
+     deps_path: "deps",
+     lockfile: "mix.lock",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -18,7 +18,7 @@ defmodule Feeder.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :quantum, :tzdata],
+    [applications: [:logger, :httpoison],
      mod: {Feeder, []}]
   end
 
@@ -36,11 +36,10 @@ defmodule Feeder.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:quantum, ">= 1.7.1"},
+    [ {:httpoison, "~> 0.9.0"},
     {:sweet_xml, "~> 0.5.0"},
     {:ex_doc, "~> 0.11", only: :dev},
     {:earmark, "~> 0.1", only: :dev},
-    {:timex, "~> 2.1.1"}
     ]
   end
 end
